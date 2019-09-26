@@ -1,63 +1,75 @@
-function setup(){
-    createCanvas(windowWidth,windowHeight); 
-    background(255);
-    noStroke();
+var backColor;
 
-    var x = 3;
-    var y = 50;
-    var z = 9;
-   
+var topLeftCorner = 0;
+var topRightCorner = 0;
+var score = 0;
+var rules= "Use the a and d keys to make the white ball eat the blue ball"
 
+var avatarX, avatarY;
+var bulletX, bulletY;
 
- fill(0,50,50);
- stroke(5)
- for (var x = 3; x < width; x=x+20) {
-   fill(0,0,100)
-   circle(x,0,x,height);
-   fill(0,5,95)
-   circle(x, 50, x, height);
-   fill(0,10,90)
-   circle(x,100,x,height);
-   fill(0,15,85)
-   circle(x,150,x,height);
-   fill(0,20,80)
-   circle(x,200, x, height);
-   fill(0,25,75)
-   circle(x,250,x,height);
-   fill(0,30,70)
-   circle(x,300,x,height);
-   fill(0,35,65)
-   circle(x,350,x,height);
-   fill(0,40,60)
-   circle(x,400, x, height);
-   fill(0,45,55)
-   circle(x,450,x,height);
-   fill(0,50,50)
-   circle(x,500,x,height);
-   fill(0,55,45)
-   circle(x,550,x,height);
-   fill(0,60,40)
-   circle(x,600,x,height);
-   fill(0,65,35)
-   circle(x,650,x,height);
-   fill(0,70,30)
-   circle(x,700, x, height);
-   fill(0,75,25)
-   circle(x,750,x,height);
-   fill(0,80,20)
-   circle(x,800,x,height);
-  }
+// var scoreFont;
 
-  fill(100,0,0,30)
-  for (var y = 50; y < height; y=y+50) {
-   rect(y, 0, y, width);
-   }
+// function preload() {
+//   scoreFont = loadFont("mansalva.ttf");
+// }
 
-
-
- 
-} 
+function setup() {
+  createCanvas(950, 700);
+  backColor = color("orange");
+  noStroke();
+  avatarX = 0;
+  avatarY = 0;
+}
 
 function draw() {
-  
+  background(100);
+
+  background(backColor);
+  textAlign(topLeftCorner);
+  // textFont(scoreFont);
+  textSize(50);
+  fill(20,30,100);
+  text(score, width - 900, height - 610);
+
+   textAlign(topRightCorner);
+   textSize(20);  
+   fill(20,30,100);
+   text(rules,width-900, height -580)
+
+  if (keyIsPressed) {
+    if (key == "a") {
+      avatarX--;
+      bulletX = avatarX;
+      bulletY = avatarY;
+    }
+    if (key == "d") {
+      avatarX++;
+      bulletX = avatarX;
+      bulletY = avatarY;
+    }
+  }
+
+
+  var v1 = createVector(avatarX, avatarY);
+
+  fill("white");
+  circle(avatarX ++, avatarY ++,50);
+
+  var purpCX = width / 2;
+  var purpCY = height * .75;
+  var purpCR = 50;
+
+  fill(20,30,100);
+  circle(purpCX, purpCY, purpCR);
+
+  if (dist(bulletX, bulletY, purpCX, purpCY) < 25 + 2) {
+    if (purpleOnce == 0) {
+      score = "YOU WIN!";
+      purpleOnce = 1;
+    }
+  }
+
 }
+
+var purpleOnce = 0;
